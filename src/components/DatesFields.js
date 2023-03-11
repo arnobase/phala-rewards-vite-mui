@@ -1,26 +1,49 @@
 import React from 'react';
-import { Box, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs from 'dayjs';
 
 import { useContext } from "react";
 import { AppContext } from "../context/ContextProvider";
+import { useState, useEffect } from 'react';
+
 
 export function DatesFields() {
   
-  const { startDate, endDate } = useContext(AppContext);
+  const { poolId, startDate, setStartDate, endDate, setEndDate } = useContext(AppContext);
+  const [startLocalValue, setStartLocalValue] = useState(dayjs())
+  const [endLocalValue, setEndLocalValue] = useState(dayjs())
+
+  useEffect(()=>{
+    setStartLocalValue(startDate)
+    setEndLocalValue(endDate)
+    console.log("change datessssss")
+  },[poolId])
 
   return (<>
    
    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker 
-        //defaultValue={startDate} 
-        value={startDate}
+        onChange={(e) => {
+          setStartDate(e)
+          setStartLocalValue(e)
+          console.log("start date change",e)
+        }} 
+        //defaultValue={dayjs()} 
+        value={startLocalValue}
       />
       <DateTimePicker 
-        //defaultValue={endDate} 
-        value={endDate} 
+        onChange={(e) => {
+          setEndDate(e)
+          setEndLocalValue(e)
+          console.log("end date change",e)
+        }} 
+        //defaultValue={dayjs()} 
+        value={endLocalValue} 
       />
     </LocalizationProvider>
-   
       </>
     
   );

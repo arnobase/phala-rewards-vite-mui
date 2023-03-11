@@ -4,16 +4,26 @@ import MaterialReactTable from 'material-react-table';
 import dayjs from 'dayjs';
 import { Box } from '@mui/material';
 
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-
 import { useRewardsData } from '../lib/useRewardsData';
 
 import { useContext } from "react";
 import { AppContext } from "../context/ContextProvider";
 
+import { useEffect } from 'react';
+
 export function RewardsTable() {
+
+  let start_date = dayjs()
+  let end_date = dayjs()
+  let nodes;
+  let update = dayjs().format("hh:mm:ss:SSS")
+  const { account, poolId, startDate, setStartDate, endDate, setEndDate } = useContext(AppContext);
+
+  useEffect(()=>{
+     setStartDate(start_date)
+     setEndDate(end_date)
+     console.log("pouet",start_date,end_date,nodes)
+  },[poolId])
 
   const columns = useMemo(() => {
     return [
@@ -61,17 +71,10 @@ export function RewardsTable() {
     ];
   }, []);
 
-  let nodes;
-  const { account, poolId, setStartDate, setEndDate } = useContext(AppContext);
   const { data } = useRewardsData(account, poolId);
-  let start_date = dayjs()
-  let end_date = dayjs()
-  
+
   if (
-    data !== undefined 
-    && data.delegationSnapshots !== undefined
-    && data.delegationSnapshots[0] !== undefined
-    && data.delegationSnapshots[0].delegation !== undefined
+    data?.delegationSnapshots[0]?.delegation?.snapshots !== undefined
   ) {
     nodes = data.delegationSnapshots[0].delegation.snapshots
     console.log("NODESSSSSSS",dayjs().format("SSS"),nodes)
@@ -93,6 +96,7 @@ export function RewardsTable() {
   });
   }
   if (nodes !== undefined) {
+  update = dayjs().format("hh:mm:ss:SSS")
   return (<> 
     <MaterialReactTable
         columns={columns}
@@ -101,16 +105,29 @@ export function RewardsTable() {
         enableGrouping
         enablePagination={false}
         initialState={{
+          columnVisibility: { updatedTime: false, value:false },
           density: 'compact',
           expanded: false, //expand all groups by default
           grouping: ['month','day'], //an array of columns to group by by default (can be multiple)
           //pagination: { pageIndex: 0, pageSize: 100 },
           //sorting: [{ id: 'state', desc: false }], //sort by state by default
         }}
+        muiTablePaperProps={{
+          elevation: 0,
+          sx: {
+            border: 'solid 0.1px #AAA',
+            borderRadius: '0'
+          },
+        }}
+        muiToolbarAlertBannerProps={{
+          sx: {
+            backgroundColor: '#EEEEEE'
+          },
+        }}
       />
       </>
   );
   } else {
-    return <>Saisir une adresse...</>
+    return <>Enter address (must have delegations in pools or vaults)</>
   }
 }

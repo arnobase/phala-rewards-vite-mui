@@ -46,7 +46,9 @@ export const ContextProvider = ({ children }) => {
         setAccount,
         poolId,
         setPoolId,
+        startDate,
         setStartDate,
+        endDate,
         setEndDate
       }}
     >
