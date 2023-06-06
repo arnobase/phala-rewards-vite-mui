@@ -13,6 +13,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "latest",
     "@mui/x-date-pickers": "^6.0.1",
+    "@polkadot/util-crypto": "^12.2.2",
     "@talismn/connect-components": "^1.1.7",
     "@talismn/connect-ui": "^1.1.2",
     "@talismn/connect-wallets": "^1.2.3",
