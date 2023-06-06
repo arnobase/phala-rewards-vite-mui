@@ -5,7 +5,7 @@ export const AppContext = React.createContext();
 
 export const ContextProvider = ({ children }) => {
   
-  const [account, setStateAccount] = useState(undefined);
+  const [queryAccount, setStateAccount] = useState(undefined);
   const [poolId, setStatePoolId] = useState(undefined);
   const [startDate, setStartDate] = useState(undefined);
   const [endDate, setEndDate] = useState(undefined);
@@ -17,7 +17,7 @@ export const ContextProvider = ({ children }) => {
   },[])
   
   const loadContext = () => {
-    lsAccount = getFromStorage("account",true)
+    lsAccount = getFromStorage("queryAccount",true)
     //lsPoolId = getFromStorage("poolId",true)
     //lsAccount="43eaN9ye29zrKuDeCb6zBM71d4SQJNVqqUwtdEM3uvANaS2p"
     //lsPoolId="3106"
@@ -29,8 +29,8 @@ export const ContextProvider = ({ children }) => {
     }
   }
 
-  const setAccount = (e) => {
-    setToStorage("account",e,true)
+  const setQueryAccount = (e) => {
+    setToStorage("queryAccount",e,true)
     setStateAccount(e)
   }
 
@@ -42,8 +42,8 @@ export const ContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        account,
-        setAccount,
+        queryAccount,
+        setQueryAccount,
         poolId,
         setPoolId,
         startDate,

@@ -8,12 +8,12 @@ import fs from 'fs/promises';
 });*/
 
 export default defineConfig(() => ({
+  base: '', // relative path instead of absolut path in builds
   plugins: [react()],
+  /* load jsx extensions as js files */
   esbuild: {
     loader: "jsx",
     include: /src\/.*\.jsx?$/,
-    // loader: "tsx",
-    // include: /src\/.*\.[tj]sx?$/,
     exclude: [],
   },
   optimizeDeps: {

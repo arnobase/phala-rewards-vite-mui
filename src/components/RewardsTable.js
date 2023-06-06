@@ -17,7 +17,7 @@ export function RewardsTable() {
   let end_date = dayjs()
   let nodes;
   let update = dayjs().format("hh:mm:ss:SSS")
-  const { account, poolId, startDate, setStartDate, endDate, setEndDate } = useContext(AppContext);
+  const { queryAccount, poolId, startDate, setStartDate, endDate, setEndDate } = useContext(AppContext);
 
   useEffect(()=>{
      setStartDate(start_date)
@@ -55,14 +55,13 @@ export function RewardsTable() {
         //required to render an aggregated cell, show the average salary in the group
         AggregatedCell: ({ cell, table }) => (
           <>
-            Sum by{' '}
-            {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}:{' '}
-            <Box sx={{ color: 'success.main', fontWeight: 'bold' }}>
+            <Box sx={{textAlign:'right'}}>Sum by {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}</Box>
+            <Box sx={{ color: 'success.main', fontWeight: 'bold' ,textAlign:'right'}}>
               {cell.getValue()?.toLocaleString?.('en-US', {
                 style: 'currency',
                 currency: 'PHA',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
+                minimumFractionDigits: 4,
+                maximumFractionDigits: 4,
               })}
             </Box>
           </>
@@ -71,13 +70,12 @@ export function RewardsTable() {
     ];
   }, []);
 
-  const { data } = useRewardsData(account, poolId);
+  const { data } = useRewardsData(queryAccount, poolId);
 
   if (
     data?.delegationSnapshots[0]?.delegation?.snapshots !== undefined
   ) {
     nodes = data.delegationSnapshots[0].delegation.snapshots
-    console.log("NODESSSSSSS",dayjs().format("SSS"),nodes)
     let prev_value = nodes[0].value
     let prev_cost = nodes[0].cost
     start_date = dayjs(nodes[0].updatedTime)

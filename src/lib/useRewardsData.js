@@ -12,7 +12,7 @@ export const useRewardsData = (
         QUERY_URL,
         gql`
         query Rewards {
-          delegationSnapshots(limit: 1, where: {delegation: {account: {id_eq: "${address}"}}, id_startsWith: "${pool_id}"}) {
+          delegationSnapshots(limit: 1, where: {delegation: {account: {id_eq: "${address}"}}, id_startsWith: "${pool_id}-"}) {
             delegation {
               id
               snapshots(orderBy: updatedTime_ASC) {
