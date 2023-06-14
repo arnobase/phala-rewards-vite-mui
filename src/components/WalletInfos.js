@@ -67,7 +67,7 @@ const WalletInfos = () => {
       <div className={style.content}>
           <div>
             <div className="py-1">
-              <Box sx={{display:'inline-block', float:'right', margin:'0px 0 10px 0'}}>{grandTotal?.toLocaleString?.('en-US', {
+              <Box sx={{display:'inline-block', float:'right', margin:'0px 0 10px 0'}}>Total stake: {grandTotal?.toLocaleString?.('en-US', {
                 style: 'currency',
                 currency: 'PHA',
                 minimumFractionDigits: 2,
