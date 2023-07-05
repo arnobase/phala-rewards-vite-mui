@@ -1,4 +1,4 @@
-const QUERY_URL = "https://squid.subsquid.io/khala-computation/graphql"
+const QUERY_URL = "https://squid.subsquid.io/phala-computation/graphql"
 
 export const fetchStakeData = async (
     address
