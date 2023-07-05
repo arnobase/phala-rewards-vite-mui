@@ -21,7 +21,7 @@ export default function App() {
             <Grid container spacing={2}>
               <Grid item xs={8}>
                 <Typography variant="h4" gutterBottom>
-                  Khala delegation Rewards
+                  Phala delegation Rewards
                 </Typography>
               </Grid>
               <Grid item justifyContent="flex-end" xs={4}>
