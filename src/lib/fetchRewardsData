@@ -1,5 +1,5 @@
-const QUERY_URL = "https://squid.subsquid.io/khala-computation/graphql"
-
+//const QUERY_URL = "https://squid.subsquid.io/khala-computation/graphql"
+const QUERY_URL = "https://subsquid.phala.network/khala-computation/graphql"
 export const fetchRewardsData = async (
     address,
     pool_id

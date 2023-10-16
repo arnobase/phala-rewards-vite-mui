@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import request, { gql } from "graphql-request";
 
-const QUERY_URL = "https://squid.subsquid.io/khala-computation/graphql"
-
+//onst QUERY_URL = "https://squid.subsquid.io/khala-computation/graphql"
+const QUERY_URL = "https://subsquid.phala.network/khala-computation/graphql"
 export const usePoolIdData = (
     address,
   ) => {
