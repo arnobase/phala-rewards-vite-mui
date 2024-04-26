@@ -4,7 +4,7 @@ import { Grid, MenuItem, TextField, FormControl } from '@mui/material';
 import { useContext } from "react";
 import { AppContext } from "../context/ContextProvider";
 import { usePoolIdData } from '../lib/usePoolIdData';
-//import { useRewardsData } from '../lib/useRewardsData';
+
 import { useEffect,useRef,useState } from 'react';
 
 export function QueryFields() {
@@ -27,11 +27,11 @@ export function QueryFields() {
   if (poolId === undefined && data !== undefined && data.delegations[0] !== undefined) setPoolId(data.delegations[0].basePool.id)
 
   const PoolSelect = () => {
-   // const rewardsdata = useRewardsData(account, poolId);
+
     if (poolId !== undefined ) {
       let items = []
       if (data !== undefined) {
-        console.log("DATA",data)
+        //console.log("DATA",data)
         Object.entries(data.delegations).map(([key,value]) => items.push( <MenuItem key={key} value={value.basePool.id}>{value.basePool.id}</MenuItem>) )
       }
       return <>
@@ -42,7 +42,7 @@ export function QueryFields() {
           onChange={(e) => {
             if (poolId !== e.target.value) setPoolId(e.target.value)
             setPoolLocalValue(e.target.value)
-            console.log("select change")
+            //console.log("select change")
           }} 
           variant="outlined"
           id="pool-select"
@@ -65,7 +65,7 @@ export function QueryFields() {
           onChange={(e) => {
             if (queryAccount !== e.target.value) setQueryAccount(e.target.value)
             setAccountLocalValue(e.target.value)
-            console.log("textfield change")
+            //console.log("textfield change")
           }} 
           fullWidth 
           id="account-address" 

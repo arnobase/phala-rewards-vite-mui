@@ -29,27 +29,47 @@ const WalletInfos = () => {
   const [allAccountsData,setAllAccountsDAta] = useState([])
 
   useEffect(()=>{
-    console.log("wallet-------",wallet)
+    console.log("wallet---@@----",wallet)
     const loadAccounts = async () => {
+      await wallet.enable("rewards")
       const res= await wallet.getAccounts()
+      console.log("*************RES",res)
       setAllAccounts(res)
-      console.log("RES",res)
+      
     }
     //console.log("WALLET",wallet)
-    if (wallet) loadAccounts()
-  },[wallet,walletAccount])
+    if (wallet !== undefined) {
+      loadAccounts()
+    }
+    else {console.log("undefined??")}
+  },[wallet])
 
   useEffect(()=>{
     let localGrandTotal = 0
     const fetchAllAccounts = async () => {
+      let nb_undef = 0
       await allAccounts?.map(async (a)=>{
         const res = await fetchStakeData(formatAddress(a.address))
         const val = JSON.parse(res).data.accounts[0]
-        val.total = Number(val.stakePoolValue) + Number(val.vaultValue)
-        console.log("val.stakePoolValue",val.stakePoolValue)
-        console.log("val.vaultValue",val.vaultValue)
-        localGrandTotal += val.total;
-        localAllAccountsData.push(val)
+        //console.log("JSON.parse(res).data.accounts[0]",val)
+        if (val !== undefined) {
+          val.total = Number(val.stakePoolValue) + Number(val.vaultValue)
+          //console.log("val.stakePoolValue",val.stakePoolValue)
+          //console.log("val.vaultValue",val.vaultValue)
+          localGrandTotal += val.total;
+          localAllAccountsData.push(val)
+
+        }
+        else {
+          nb_undef++
+          const undef_obj = {
+            id: formatAddress(a.address),
+            stakePoolValue: "0",
+            vaultValue: "0",
+            total: 0
+          }
+          localAllAccountsData.push(undef_obj)
+        }
         if (localAllAccountsData.length === allAccounts.length) {
           setAllAccountsDAta(localAllAccountsData)
           setgrandTotal(localGrandTotal);
@@ -60,7 +80,7 @@ const WalletInfos = () => {
   },[allAccounts])
 
   useEffect(()=>{
-    console.log("allAccountsData",allAccountsData)
+    //("allAccountsData",allAccountsData)
   },[allAccountsData])
 
   return (<div className={style.wrapper}>
@@ -87,7 +107,8 @@ const WalletInfos = () => {
                   <TableBody>
                   {allAccounts?.map((a)=>{
                     const obj = allAccountsData.find(el => formatAddress(el.id) === formatAddress(a.address))
-                    return <>        
+                    
+                    if (obj?.total != 0) return <>        
                       <TableRow
                         key={a.name}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

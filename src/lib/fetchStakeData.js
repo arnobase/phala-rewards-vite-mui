@@ -14,7 +14,7 @@ export const fetchStakeData = async (
         "operationName": "MyQuery"
     });
 
-    console.log(query)
+    //console.log(query)
 
     var requestOptions = {
     method: 'POST',

@@ -19,7 +19,7 @@ export function DatesFields() {
   useEffect(()=>{
     setStartLocalValue(startDate)
     setEndLocalValue(endDate)
-    console.log("change datessssss")
+    //("change datessssss")
   },[poolId])
 
   return (<>
@@ -29,7 +29,7 @@ export function DatesFields() {
         onChange={(e) => {
           setStartDate(e)
           setStartLocalValue(e)
-          console.log("start date change",e)
+          //console.log("start date change",e)
         }} 
         //defaultValue={dayjs()} 
         value={startLocalValue}
@@ -38,7 +38,7 @@ export function DatesFields() {
         onChange={(e) => {
           setEndDate(e)
           setEndLocalValue(e)
-          console.log("end date change",e)
+          //("end date change",e)
         }} 
         //defaultValue={dayjs()} 
         value={endLocalValue} 

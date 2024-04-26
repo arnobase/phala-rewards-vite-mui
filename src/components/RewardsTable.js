@@ -22,7 +22,7 @@ export function RewardsTable() {
   useEffect(()=>{
      setStartDate(start_date)
      setEndDate(end_date)
-     console.log("pouet",start_date,end_date,nodes)
+     //console.log("pouet",start_date,end_date,nodes)
   },[poolId])
 
   const columns = useMemo(() => {
@@ -71,11 +71,13 @@ export function RewardsTable() {
   }, []);
 
   const { data } = useRewardsData(queryAccount, poolId);
-
+  //console.log("~~~~~~~",data)
   if (
-    data?.delegationSnapshots[0]?.delegation?.snapshots !== undefined
+    data?.delegationSnapshots.length > 0
   ) {
-    nodes = data.delegationSnapshots[0].delegation.snapshots
+    
+    nodes = data?.delegationSnapshots
+    //console.log("nodes",nodes)
     let prev_value = nodes[0].value
     let prev_cost = nodes[0].cost
     start_date = dayjs(nodes[0].updatedTime)
